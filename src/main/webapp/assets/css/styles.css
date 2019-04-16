@@ -1,0 +1,22 @@
+body {
+	color : #000000;
+}
+
+.container {
+	margin-top : 20px;	
+}
+
+.camera-view {
+	border : solid 1px black;
+	height : 800px;;
+}
+
+.btn-gosecuri {
+	color : #000000;
+	background-color : #379EC1;
+}
+
+.picture {
+	border : solid 1px black;
+	height : 350px;;
+}
