@@ -13,14 +13,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import epsi.chef.gosecuri.api.CallApi;
 import epsi.chef.gosecuri.entity.Materiel;
 
 @Controller
 public class AccueilController {
+	private CallApi callApi = new CallApi();
 
 	@GetMapping("/")
 	public ModelAndView displayAccueil() {
 		ModelAndView mv = new ModelAndView("index");
+		callApi.request();
 		return mv;
 	}
 	
