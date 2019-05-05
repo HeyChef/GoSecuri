@@ -6,9 +6,11 @@ body {
 	margin-top : 20px;	
 }
 
-.camera-view {
+#videoElement, #c {
 	border : solid 1px black;
-	height : 800px;;
+	width: 640px;
+	height: 480px;
+	background-color: #666;
 }
 
 .btn-gosecuri {
@@ -19,4 +21,14 @@ body {
 .picture {
 	border : solid 1px black;
 	height : 350px;;
+}
+
+video {
+  -webkit-transform: scaleX(-1);
+  transform: scaleX(-1);
+}
+
+#loginButton {
+	display: none;
+	margin-top : 20px;
 }
