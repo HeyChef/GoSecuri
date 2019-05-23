@@ -15,7 +15,7 @@
 <script src="${jquery}"></script>
 </head>
 <body>
-	<div id="loading"></div>g
+	<div id="loading"></div>
 	<div class="container">
 		<div class="row">
 			<div class="col-md-8">
@@ -35,8 +35,8 @@
 					<input id="button" class="btn btn-primary btn-gosecuri"
 						type="submit" value="S'identifier">
 				</form:form>
-				<c:if test="${not empty error }">
-					${error}
+				<c:if test="${not empty message }">
+					${message}
 				</c:if>
 			</div>
 		</div>

@@ -25,38 +25,39 @@
 					<input class="btn btn-primary btn-gosecuri" type="submit"
 						value="Identification">
 				</form:form>
-				<c:forEach var="mat" items="${equipments}">
-					<div>
-						<input type="hidden" name="label" value="${mat.getDocId() }">
-						<c:choose>
-							<c:when test="${mat.isChecked()==true}">
-								<input type="checkbox" name="${mat.getDocId() }" checked>
-								<label><c:out value="${mat.libelle}" /></label>
-							</c:when>
-							<c:otherwise>
-								<c:choose>
-									<c:when test="${mat.getQuantite()<=0}">
-										<input type="checkbox" disabled="" name="${mat.getDocId() }">
-										<label class="cDisabled"><c:out value="${mat.libelle}" /></label>
-									</c:when>
-									<c:otherwise>
-										<input type="checkbox" name="${mat.getDocId() }">
-										<label><c:out value="${mat.libelle}" /></label>
-									</c:otherwise>
-								</c:choose>
-							</c:otherwise>
-						</c:choose>
-					</div>
-				</c:forEach>
+				<form:form action="/gosecuri/addEquipment" method="post">
+					<c:forEach var="mat" items="${equipments}">
+						<div>
+							<input type="hidden" name="label" value="${mat.getDocId() }">
+							<c:choose>
+								<c:when test="${mat.isChecked()==true}">
+									<input type="checkbox" name="${mat.getDocId() }" checked>
+									<label><c:out value="${mat.libelle}" /></label>
+								</c:when>
+								<c:otherwise>
+									<c:choose>
+										<c:when test="${mat.getQuantite()<=0}">
+											<input type="checkbox" disabled="" name="${mat.getDocId() }">
+											<label class="cDisabled"><c:out
+													value="${mat.libelle}" /></label>
+										</c:when>
+										<c:otherwise>
+											<input type="checkbox" name="${mat.getDocId() }">
+											<label><c:out value="${mat.libelle}" /></label>
+										</c:otherwise>
+									</c:choose>
+								</c:otherwise>
+							</c:choose>
+						</div>
+					</c:forEach>
 			</div>
 			<div class="col-md-5"></div>
 			<div class="col-md-4">
-				<form:form action="/gosecuri/addEquipment" method="post">
-					<div>
-						<img class="picture" src="${user.getImageURL() }" /> <input
-							type="submit" class="btn btn-primary btn-gosecuri"
-							value="Ajouter equipement">
-					</div>
+				<div>
+					<img class="picture" src="${user.getImageURL() }" /> <input
+						type="submit" class="btn btn-primary btn-gosecuri"
+						value="Ajouter equipement">
+				</div>
 				</form:form>
 			</div>
 		</div>

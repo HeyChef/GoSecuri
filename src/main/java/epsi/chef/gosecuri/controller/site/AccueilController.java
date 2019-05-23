@@ -27,11 +27,18 @@ public class AccueilController {
     private LoginServices loginServices = new LoginServices();
 
     @GetMapping( "/" )
-    public ModelAndView displayAccueil( @RequestParam( value = "error", required = false ) Boolean error ) {
+    public ModelAndView displayAccueil( @RequestParam( value = "error", required = false ) Boolean error,
+            @RequestParam( value = "success", required = false ) Boolean success ) {
         ModelAndView mv = new ModelAndView( "index" );
         if ( error != null ) {
             if ( error ) {
-                mv.addObject( "error", " Vous ne correspondez à aucune personne autorisé" );
+                mv.addObject( "message", " Vous ne correspondez à aucune personne autorisé" );
+            }
+        }
+
+        if ( success != null ) {
+            if ( success ) {
+                mv.addObject( "message", "Emprunt effectué avec succès" );
             }
         }
         return mv;
@@ -70,7 +77,7 @@ public class AccueilController {
                 equipments.values().removeIf( Objects::isNull );
                 loginServices.addEquipment( equipments, user.getUserId() );
                 request.getSession().invalidate();
-                response.sendRedirect( request.getContextPath() );
+                response.sendRedirect( request.getContextPath() + "?success=true" );
 
             }
         } catch ( IOException e ) {
