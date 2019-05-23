@@ -24,18 +24,16 @@ public class LoginServices {
         try {
             List<Picture> pictures = firebase.getPicture();
             List<String> faceSetTokens = new ArrayList<>();
-            while ( faceSetTokens.isEmpty() ) {
-                try {
-                    JSONObject obj = new JSONObject( faceDetection.getFaceSetDetails() );
-                    if ( obj.has( "face_tokens" ) ) {
-                        JSONArray arr = obj.getJSONArray( "face_tokens" );
-                        for ( int i = 0; i < arr.length(); i++ ) {
-                            faceSetTokens.add( arr.getString( i ) );
-                        }
+            try {
+                JSONObject obj = new JSONObject( faceDetection.getFaceSetDetails() );
+                if ( obj.has( "face_tokens" ) ) {
+                    JSONArray arr = obj.getJSONArray( "face_tokens" );
+                    for ( int i = 0; i < arr.length(); i++ ) {
+                        faceSetTokens.add( arr.getString( i ) );
                     }
-                } catch ( Exception e ) {
-                    e.printStackTrace();
                 }
+            } catch ( Exception e ) {
+                e.printStackTrace();
             }
             List<Picture> pictureToAdd = new ArrayList<>();
             for ( Picture picture : pictures ) {
@@ -45,57 +43,24 @@ public class LoginServices {
                     pictureToAdd.add( picture );
                 }
             }
-            boolean requestOK = false;
-            int requestMax = 0;
             for ( Picture picture : pictureToAdd ) {
                 String url = picture.getImageURL();
                 if ( url != "" && url != null ) {
-                    while ( !requestOK && requestMax < 10 ) {
-                        try {
-                            requestMax++;
-                            JSONObject obj = new JSONObject( faceDetection.getFaceToken( picture.getImageURL() ) );
-                            if ( obj.has( "faces" ) ) {
-                                JSONArray arr = obj.getJSONArray( "faces" );
-                                picture.setFaceToken( arr.getJSONObject( 0 ).getString( "face_token" ) );
-                                requestOK = true;
-                                firebase.updateFaceToken( picture );
-                            }
-                        } catch ( Exception e ) {
-                            e.printStackTrace();
-                        }
-                    }
-                    requestOK = false;
-                    requestMax = 0;
-                    while ( !requestOK && requestMax < 10 ) {
-                        try {
-                            requestMax++;
-                            JSONObject obj = new JSONObject( faceDetection.addFaceToFaceSet( picture.getFaceToken() ) );
-                            if ( obj.has( "error_message" ) ) {
-                                requestOK = false;
-                            } else {
-                                requestOK = true;
-                            }
-                        } catch ( Exception e ) {
-                            e.printStackTrace();
-                        }
-                    }
-                }
-            }
-            requestOK = false;
-            for ( String token : faceSetTokens ) {
-                while ( !requestOK && requestMax < 10 ) {
                     try {
-                        requestMax++;
-                        JSONObject obj = new JSONObject( faceDetection.removeFaceFromFaceSet( token ) );
-                        if ( obj.has( "error_message" ) ) {
-                            requestOK = true;
-                        } else {
-                            requestOK = true;
+                        JSONObject obj = new JSONObject( faceDetection.getFaceToken( picture.getImageURL() ) );
+                        if ( obj.has( "faces" ) ) {
+                            JSONArray arr = obj.getJSONArray( "faces" );
+                            picture.setFaceToken( arr.getJSONObject( 0 ).getString( "face_token" ) );
+                            firebase.updateFaceToken( picture );
                         }
                     } catch ( Exception e ) {
                         e.printStackTrace();
                     }
+                    faceDetection.addFaceToFaceSet( picture.getFaceToken() );
                 }
+            }
+            for ( String token : faceSetTokens ) {
+                faceDetection.removeFaceFromFaceSet( token );
             }
 
         } catch ( Exception e ) {
