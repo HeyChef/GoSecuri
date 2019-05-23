@@ -1,34 +1,66 @@
 body {
-	color : #000000;
+	color: #000000;
 }
 
 .container {
-	margin-top : 20px;	
+	margin-top: 20px;
 }
 
 #videoElement, #c {
-	border : solid 1px black;
-	width: 640px;
-	height: 480px;
-	background-color: #666;
+	border: solid 1px black;
+	width: 100%;
+	background-color: black;
 }
 
 .btn-gosecuri {
-	color : #000000;
-	background-color : #379EC1;
+	width: 100%;
+	color: white;
+	background-color: #379EC1;
+	margin-bottom : 20px;
 }
 
 .picture {
-	border : solid 1px black;
-	height : 350px;;
+	border: solid 1px black;
+	width : 100%;
+	margin-bottom : 25px;
 }
 
 video {
-  -webkit-transform: scaleX(-1);
-  transform: scaleX(-1);
+	-webkit-transform: scaleX(-1);
+	transform: scaleX(-1);
 }
 
 #loginButton {
 	display: none;
-	margin-top : 20px;
+	margin-top: 20px;
+}
+
+.title {
+	color: #379EC1;
+	font-weight: bolder;
+	font-size: 20px;
+}
+
+.logo {
+	width: 100%;
+	margin-bottom: 25px;
+}
+
+hr {
+	border: solid 1px #659224;
+}
+
+#loading {
+	visibility : hidden;
+	position: fixed;
+	z-index: 1104;
+	background: url(../images/spinner.svg) no-repeat center center;
+	background-color: rgba(202, 202, 202, 0.5);
+	width: 100%;
+	height: 100%;
+}
+
+.cDisabled {
+	color : #ABAAAA;
+	font-style : italic;
 }

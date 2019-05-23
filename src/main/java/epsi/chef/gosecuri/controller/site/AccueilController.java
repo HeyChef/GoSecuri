@@ -27,8 +27,7 @@ public class AccueilController {
     private LoginServices loginServices = new LoginServices();
 
     @GetMapping( "/" )
-    public ModelAndView displayAccueil( @RequestParam( value = "error", required = false ) Boolean error )
-            throws Exception {
+    public ModelAndView displayAccueil( @RequestParam( value = "error", required = false ) Boolean error ) {
         ModelAndView mv = new ModelAndView( "index" );
         if ( error != null ) {
             if ( error ) {
@@ -45,7 +44,6 @@ public class AccueilController {
             try {
                 response.sendRedirect( request.getContextPath() );
             } catch ( IOException e ) {
-                // TODO Auto-generated catch block
                 e.printStackTrace();
             }
         } else {
@@ -76,7 +74,22 @@ public class AccueilController {
 
             }
         } catch ( IOException e ) {
-            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+    }
+
+    @RequestMapping( value = "/logout", method = RequestMethod.POST )
+    public void logout( HttpServletRequest request, HttpServletResponse response ) {
+        try {
+            if ( request.getSession().getAttribute( "user" ) == null ) {
+                response.sendRedirect( request.getContextPath() );
+
+            } else {
+                request.getSession().invalidate();
+                response.sendRedirect( request.getContextPath() );
+
+            }
+        } catch ( IOException e ) {
             e.printStackTrace();
         }
     }
