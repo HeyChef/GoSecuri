@@ -17,6 +17,7 @@ import java.util.Random;
 import javax.net.ssl.SSLException;
 
 public class FaceDetection {
+	
 
     public String getFaceSetDetails() throws Exception {
         String url = "https://api-us.faceplusplus.com/facepp/v3/faceset/getdetail";
